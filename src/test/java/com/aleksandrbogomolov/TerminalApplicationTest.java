@@ -1,6 +1,5 @@
-package com.aleksandrbogomolov.service;
+package com.aleksandrbogomolov;
 
-import com.aleksandrbogomolov.TerminalApplication;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -28,9 +26,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TerminalServiceTest {
+public class TerminalApplicationTest {
 
-    private static Logger logger = LoggerFactory.getLogger(TerminalServiceTest.class);
+    private static Logger logger = LoggerFactory.getLogger(TerminalApplicationTest.class);
 
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {
@@ -50,46 +48,38 @@ public class TerminalServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        TerminalService.setBundle(ResourceBundle.getBundle("mainMessages", Locale.ENGLISH));
+        TerminalApplication.setBundle(ResourceBundle.getBundle("mainMessages", Locale.ENGLISH));
     }
 
     @Test
     public void checkForMorning() throws Exception {
         Clock clock = Clock.fixed(Instant.parse("2016-12-03T04:00:00.00Z"), ZoneId.of("Europe/Kiev"));
-        TerminalService.setClock(clock);
+        TerminalApplication.setClock(clock);
         TerminalApplication.main(new String[0]);
-        String output = this.capture.toString();
-        String MORNING = "Good morning, World!";
-        assertThat(output).contains(MORNING);
+        assertThat(this.capture.toString()).contains("Good morning, World!");
     }
 
     @Test
     public void checkForDay() throws Exception {
         Clock clock = Clock.fixed(Instant.parse("2016-12-03T07:00:00.00Z"), ZoneId.of("Europe/Kiev"));
-        TerminalService.setClock(clock);
+        TerminalApplication.setClock(clock);
         TerminalApplication.main(new String[0]);
-        String output = this.capture.toString();
-        String DAY = "Good day, World!";
-        assertThat(output).contains(DAY);
+        assertThat(this.capture.toString()).contains("Good day, World!");
     }
 
     @Test
     public void checkForEvening() throws Exception {
         Clock clock = Clock.fixed(Instant.parse("2016-12-03T17:00:00.00Z"), ZoneId.of("Europe/Kiev"));
-        TerminalService.setClock(clock);
+        TerminalApplication.setClock(clock);
         TerminalApplication.main(new String[0]);
-        String output = this.capture.toString();
-        String EVENING = "Good evening, World!";
-        assertThat(output).contains(EVENING);
+        assertThat(this.capture.toString()).contains("Good evening, World!");
     }
 
     @Test
     public void checkForNight() throws Exception {
         Clock clock = Clock.fixed(Instant.parse("2016-12-03T21:00:00.00Z"), ZoneId.of("Europe/Kiev"));
-        TerminalService.setClock(clock);
+        TerminalApplication.setClock(clock);
         TerminalApplication.main(new String[0]);
-        String output = this.capture.toString();
-        String NIGHT = "Good night, World!";
-        assertThat(output).contains(NIGHT);
+        assertThat(this.capture.toString()).contains("Good night, World!");
     }
 }
