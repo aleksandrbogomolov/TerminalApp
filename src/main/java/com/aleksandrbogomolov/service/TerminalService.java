@@ -37,6 +37,6 @@ public class TerminalService {
     }
 
     private boolean isBetween(LocalTime of, LocalTime of2) {
-        return LocalTime.now(clock).isAfter(of) && LocalTime.now(clock).isBefore(of2);
+        return LocalTime.now(clock).toSecondOfDay() >= of.toSecondOfDay() && LocalTime.now(clock).isBefore(of2);
     }
 }

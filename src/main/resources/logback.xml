@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-        <resetJUL>true</resetJUL>
-    </contextListener>
-
-    <jmxConfigurator/>
-
-    If need log-file
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>terminal-app.log</file>
 
